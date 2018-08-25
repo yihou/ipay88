@@ -1,5 +1,4 @@
 # IPay88
-[![Build Status](https://img.shields.io/packagist/dt/karyamedia/ipay88.svg?maxAge=2592000)](https://packagist.org/packages/karyamedia/ipay88)
 
 Ipay88 payment gateway module.
 
@@ -10,7 +9,7 @@ Ipay88 payment gateway module.
 I've make this project available to install via [Composer](https://getcomposer.org/) with following command:
 
 ```bash
-$ composer require karyamedia/ipay88 dev-master
+$ composer require Wilson-Chan/ipay88 dev-master
 ```
 
 ## Example Controller
@@ -77,6 +76,4 @@ https://github.com/cchitsiang/ipay88
 
 https://github.com/fastsafety/ipay88
 
-## Lisence
-
-MIT © [Karyamedia](https://github.com/karyamedia/karya). Please see [License File](LICENSE.md) for more information.
+https://github.com/karyamedia/ipay88
