@@ -141,13 +141,15 @@ class Request
 		//simple caching
 		if((!$this->signature) || $refresh)
 		{
-			$this->signature = Signature::generateSignature(
-				$this->merchantKey,
-				$this->getMerchantCode(),
-				$this->getRefNo(),
-				preg_replace('/[\.\,]/', '', $this->getAmount()), //clear ',' and '.'
-				$this->getCurrency()
-			);
+			//$this->signature = Signature::generateSignature(
+			//	$this->merchantKey,
+			//	$this->getMerchantCode(),
+			//	$this->getRefNo(),
+			//	preg_replace('/[\.\,]/', '', $this->getAmount()), //clear ',' and '.'
+			//	$this->getCurrency()
+			//);
+            $source = $this->merchantKey.$this->getMerchantCode().$this->getRefNo().preg_replace('/[\.\,]/', '', $this->getAmount()).$this->getCurrency();
+            $this->signature = hash('sha256', $source);
 		}
 
 		return $this->signature;
