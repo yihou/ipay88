@@ -1,6 +1,6 @@
 # IPay88
 
-Ipay88 payment gateway module.
+Ipay88 payment gateway module compliant to Technical Specification v1.6.4
 
 **NOTE**: Your require to request demo account from techsupport@ipay88.com.my
 
@@ -32,7 +32,7 @@ class Payment {
 	public function index()
 	{
 		$request = new IPay88\Payment\Request($this->_merchantKey);
-		$this->_data = array(
+		$this->_data = [
 			'merchantCode' => $request->setMerchantCode($this->_merchantCode),
 			'paymentId' =>  $request->setPaymentId(1),
 			'refNo' => $request->setRefNo('EXAMPLE0001'),
@@ -47,7 +47,7 @@ class Payment {
 			'signature' => $request->getSignature(),
 			'responseUrl' => $request->setResponseUrl('http://example.com/response'),
 			'backendUrl' => $request->setBackendUrl('http://example.com/backend')
-			);
+        ];
 
 		IPay88\Payment\Request::make($this->_merchantKey, $this->_data);
 	}

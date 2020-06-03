@@ -1,13 +1,12 @@
-<?php 
+<?php
 
 namespace IPay88\Payment;
 
-use IPay88\Security\Signature;
 use IPay88\View\RequestForm;
 
 class Request
 {
-    public static $paymentUrl = 'https://www.mobile88.com/epayment/entry.asp';
+    public static $paymentUrl = 'https://payment.ipay88.com.my/epayment/entry.asp';
 
 	private $merchantKey;
 
@@ -148,7 +147,7 @@ class Request
 			//	preg_replace('/[\.\,]/', '', $this->getAmount()), //clear ',' and '.'
 			//	$this->getCurrency()
 			//);
-            $source = $this->merchantKey.$this->getMerchantCode().$this->getRefNo().preg_replace('/[\.\,]/', '', $this->getAmount()).$this->getCurrency();
+            $source = $this->merchantKey.$this->getMerchantCode().$this->getRefNo().preg_replace('/[.,]/', '', $this->getAmount()).$this->getCurrency();
             $this->signature = hash('sha256', $source);
 		}
 
@@ -175,10 +174,22 @@ class Request
 		return $this->backendUrl = $val;
 	}
 
-	protected static $fillable_fields = [
-		'merchantCode','paymentId','refNo','amount',
-		'currency','prodDesc','userName','userEmail',
-		'userContact','remark','lang','responseUrl','backendUrl'
+	protected static $fillable = [
+		'merchantCode',
+        'paymentId',
+        'refNo',
+        'amount',
+
+		'currency',
+        'prodDesc',
+        'userName',
+        'userEmail',
+
+		'userContact',
+        'remark',
+        'lang',
+        'responseUrl',
+        'backendUrl'
 	];
 
 	/**
@@ -186,11 +197,11 @@ class Request
 	*
 	* @access public
 	* @param string $merchantKey The merchant key provided by ipay88
-	* @param hash $fieldValues Set of field value that is to be set as the properties
-	*  Override `$fillable_fields` to determine what value can be set during this factory method
+	* @param array $fieldValues Set of field value that is to be set as the properties
+	*  Override `$fillable` to determine what value can be set during this factory method
 	* @example
 	*  $request = IPay88\Payment\Request::make($merchantKey, $fieldValues)
-	* 
+	*
 	*/
 	public static function make($merchantKey, $fieldValues)
 	{
@@ -204,36 +215,36 @@ class Request
     */
     public static function getPaymentOptions($multiCurrency = true)
     {
-        $myrOnly = array(
-        	2 => array('Credit Card','MYR'),
-        	6 => array('Maybank2U','MYR'),
-        	8 => array('Alliance Online','MYR'),
-        	10=> array('AmOnline','MYR'),
-        	14=> array('RHB Online','MYR'),
-        	15=> array('Hong Leong Online','MYR'),
-        	16=> array('FPX','MYR'),
-        	20=> array('CIMB Click', 'MYR'),
-        	22=> array('Web Cash','MYR'),
-        	48=> array('PayPal','MYR'),
-        	100 => array('Celcom AirCash','MYR'),
-        	102 => array('Bank Rakyat Internet Banking','MYR'),
-        	103 => array('AffinOnline','MYR')
-        );
+        $myrOnly = [
+        	2 => ['Credit Card','MYR'],
+        	6 => ['Maybank2U','MYR'],
+        	8 => ['Alliance Online','MYR'],
+        	10=> ['AmOnline','MYR'],
+        	14=> ['RHB Online','MYR'],
+        	15=> ['Hong Leong Online','MYR'],
+        	16=> ['FPX','MYR'],
+        	20=> ['CIMB Click', 'MYR'],
+        	22=> ['Web Cash','MYR'],
+        	48=> ['PayPal','MYR'],
+        	100 => ['Celcom AirCash','MYR'],
+        	102 => ['Bank Rakyat Internet Banking','MYR'],
+        	103 => ['AffinOnline','MYR']
+        ];
 
-        $nonMyr = array(
-        	25=> array('Credit Card','USD'),
-        	35=> array('Credit Card','GBP'),
-        	36=> array('Credit Card','THB'),
-        	37=> array('Credit Card','CAD'),
-        	38=> array('Credit Card','SGD'),
-        	39=> array('Credit Card','AUD'),
-        	40=> array('Credit Card','MYR'),
-        	41=> array('Credit Card','EUR'),
-        	42=> array('Credit Card','HKD'),
-        );
+        $nonMyr = [
+        	25=> ['Credit Card','USD'],
+        	35=> ['Credit Card','GBP'],
+        	36=> ['Credit Card','THB'],
+        	37=> ['Credit Card','CAD'],
+        	38=> ['Credit Card','SGD'],
+        	39=> ['Credit Card','AUD'],
+        	40=> ['Credit Card','MYR'],
+        	41=> ['Credit Card','EUR'],
+        	42=> ['Credit Card','HKD'],
+        ];
 
         return $multiCurrency ? $nonMyr : $myrOnly;
     }
 
-    
+
 }

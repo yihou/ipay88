@@ -8,16 +8,37 @@ class Signature
      * Generate signature to be used for transaction.
      *
      * You may verify your signature with online tool provided by iPay88
-     * http://www.mobile88.com/epayment/testing/TestSignature.asp
+     * https://payment.ipay88.com.ph/epayment/testing/TestSignature_response.asp
      *
      * @access public
-     * 
-     * accept arbitary amount of params
+     *
+     * accept arbitrary amount of params
      * @example IPay88\Security\Signature::generateSignature($key,$code,$refNo,$amount,$currency,[, $status])
      */
     public static function generateSignature()
     {
         $stringToHash = implode('',func_get_args());
+        return base64_encode(self::_hex2bin(sha1($stringToHash)));
+    }
+
+
+    /**
+     * Generate signature to be used for transaction.
+     *
+     * You may verify your signature with online tool provided by iPay88
+     * https://payment.ipay88.com.ph/epayment/testing/TestSignature_response.asp
+     *
+     * @access public
+     * @param string $refNo Unique merchant transaction id
+     * @param int $amount Payment amount
+     * @param string $currency Payment currency
+     * @param string $merchatKey
+     * @param string $merchantCode
+     * @return string
+     */
+    public static function generateTransactionSignature($refNo, $amount, $currency, $merchatKey, $merchantCode)
+    {
+        $stringToHash = $merchatKey.$merchantCode.$refNo.$amount.$currency;
         return base64_encode(self::_hex2bin(sha1($stringToHash)));
     }
 
@@ -31,7 +52,7 @@ class Signature
     private static function _hex2bin($source)
     {
     	$bin = null;
-    	for ($i=0; $i < strlen($source); $i=$i+2) { 
+    	for ($i=0; $i < strlen($source); $i=$i+2) {
     		$bin .= chr(hexdec(substr($source, $i, 2)));
     	}
     	return $bin;
