@@ -20,6 +20,8 @@
         "phpunit/phpunit": "5.4.*"
     },
     "require": {
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "illuminate/validation": "^7.14",
+        "illuminate/support": "^7.14"
     }
 }

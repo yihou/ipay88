@@ -32,26 +32,27 @@ class Signature
      * @param string $refNo Unique merchant transaction id
      * @param int $amount Payment amount
      * @param string $currency Payment currency
-     * @param string $merchatKey
+     * @param string $merchantKey
      * @param string $merchantCode
      * @return string
      */
-    public static function generateTransactionSignature($refNo, $amount, $currency, $merchatKey, $merchantCode)
+    public static function generateTransactionSignature($refNo, $amount, $currency, $merchantKey, $merchantCode)
     {
-        $stringToHash = $merchatKey.$merchantCode.$refNo.$amount.$currency;
+        $stringToHash = $merchantKey.$merchantCode.$refNo.$amount.$currency;
         return base64_encode(self::_hex2bin(sha1($stringToHash)));
     }
 
     /**
-    *
-    * equivalent of php 5.4 hex2bin
-    *
-    * @access private
-    * @param string $source The string to be converted
-    */
+     *
+     * equivalent of php 5.4 hex2bin
+     *
+     * @access private
+     * @param string $source The string to be converted
+     * @return string
+     */
     private static function _hex2bin($source)
     {
-    	$bin = null;
+    	$bin = '';
     	for ($i=0; $i < strlen($source); $i=$i+2) {
     		$bin .= chr(hexdec(substr($source, $i, 2)));
     	}

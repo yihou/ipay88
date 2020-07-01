@@ -2,8 +2,6 @@
 
 namespace IPay88\Payment;
 
-use IPay88\Security\Signature;
-
 class Response
 {
 	public static $requeryUrl = 'https://payment.ipay88.com.my/epayment/enquiry.asp';

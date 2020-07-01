@@ -2,6 +2,7 @@
 
 namespace IPay88\Payment;
 
+use IPay88\Classes\PaymentMethods;
 use IPay88\View\RequestForm;
 
 class Request
@@ -210,40 +211,13 @@ class Request
 	}
 
     /**
-    * @access public
-    * @param boolean $multiCurrency Set to true to get payments optinos for multi currency gateway
-    */
+     * @access public
+     * @param boolean $multiCurrency Set to true to get payments optinos for multi currency gateway
+     * @return string[][]
+     */
     public static function getPaymentOptions($multiCurrency = true)
     {
-        $myrOnly = [
-        	2 => ['Credit Card','MYR'],
-        	6 => ['Maybank2U','MYR'],
-        	8 => ['Alliance Online','MYR'],
-        	10=> ['AmOnline','MYR'],
-        	14=> ['RHB Online','MYR'],
-        	15=> ['Hong Leong Online','MYR'],
-        	16=> ['FPX','MYR'],
-        	20=> ['CIMB Click', 'MYR'],
-        	22=> ['Web Cash','MYR'],
-        	48=> ['PayPal','MYR'],
-        	100 => ['Celcom AirCash','MYR'],
-        	102 => ['Bank Rakyat Internet Banking','MYR'],
-        	103 => ['AffinOnline','MYR']
-        ];
-
-        $nonMyr = [
-        	25=> ['Credit Card','USD'],
-        	35=> ['Credit Card','GBP'],
-        	36=> ['Credit Card','THB'],
-        	37=> ['Credit Card','CAD'],
-        	38=> ['Credit Card','SGD'],
-        	39=> ['Credit Card','AUD'],
-        	40=> ['Credit Card','MYR'],
-        	41=> ['Credit Card','EUR'],
-        	42=> ['Credit Card','HKD'],
-        ];
-
-        return $multiCurrency ? $nonMyr : $myrOnly;
+        return $multiCurrency ? PaymentMethods::$foreignCurrencyList : PaymentMethods::$myrCurrencyOnlyList;
     }
 
 

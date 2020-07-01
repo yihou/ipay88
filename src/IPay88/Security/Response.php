@@ -30,7 +30,7 @@ class Response
         	$response->getMerchantCode(),
         	$response->getPaymentId(),
         	$response->getRefNo(),
-        	preg_replace('/[.,]/', '', $response->getAmount()), //clear ',' and '.'
+                preg_replace('/[.,]/', '', $response->getAmount()), //clear ',' and '.'
         	$response->getCurrency(),
         	$response->getStatus()
         	);
